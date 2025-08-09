@@ -119,7 +119,7 @@ stages = ['pre', 'exp', 'post']
 
 for stage in stages:
     feat_index = feat_index_mean[stage]
-    feat_names_mean[stage] = [feat_names_all[i] for i in feat_index] # 特征选择后剩余特征的名称
+    feat_names_mean[stage] = [feat_names_all[i] for i in feat_index] 
 
 
 
@@ -234,6 +234,7 @@ data_sel = ch_inf(file_path)
 
 data_sel.set_montage('biosemi32')
 hypyp.viz.viz_2D_topomap_inter(data_sel, data_sel, matrix, lab=True)
+
 
 
 
