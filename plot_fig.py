@@ -42,13 +42,13 @@ def data_group():
         tum_time_diff = pickle.load(file_obj)
     
 
-    good_p = np.array(np.where(tum_time_diff<0.4)).T # 击鼓时间差T小于0.4s T<0.4s
+    good_p = np.array(np.where(tum_time_diff<0.4)).T #0.4s T<0.4s
     middle_p = np.array(np.where((tum_time_diff>0.4) & (tum_time_diff<0.55))).T # 0.4s<T<0.55
     bad_p = np.array(np.where(tum_time_diff>0.55)).T  # T>0.55s
     
-    C_good = C_all_mean[:,good_p[:,0],good_p[:,1],:,:,:,:] # 优
-    C_middle = C_all_mean[:,middle_p[:,0],middle_p[:,1],:,:,:,:] # 良
-    C_bad = C_all_mean[:,bad_p[:,0],bad_p[:,1],:,:,:,:] # 差
+    C_good = C_all_mean[:,good_p[:,0],good_p[:,1],:,:,:,:] 
+    C_middle = C_all_mean[:,middle_p[:,0],middle_p[:,1],:,:,:,:]
+    C_bad = C_all_mean[:,bad_p[:,0],bad_p[:,1],:,:,:,:] 
   
   
     return C_good, C_middle, C_bad
@@ -199,7 +199,7 @@ for s, p_value_stage in enumerate(p_value_all):
     for i, p_value_index in enumerate(p_value_stage):
         plt.figure(figsize=(6, 5))
         for j, p_value_one in enumerate(p_value_index):
-            p_value_one[np.where(p_value_one<=0.05)] = fix_values[j] # 不同频段用不同颜色表示
+            p_value_one[np.where(p_value_one<=0.05)] = fix_values[j] 
             sns.heatmap(p_value_one, vmin=0, vmax=1, cmap="Set1", cbar=False, center=0.5,
                         xticklabels=include_ch, yticklabels=include_ch, alpha=0.7)
             
@@ -233,7 +233,7 @@ for g, p_value_group in enumerate(p_value_stage):
     for i, p_value_index in enumerate(p_value_group):
         plt.figure(figsize=(11, 9))
         for j, p_value_one in enumerate(p_value_index):
-            p_value_one[np.where(p_value_one<=0.05)] = fix_values[j] # 不同频段用不同颜色表示
+            p_value_one[np.where(p_value_one<=0.05)] = fix_values[j] 
             sns.heatmap(p_value_one, vmin=0, vmax=1, cmap="Set1", cbar=False, center=0.5,
                         xticklabels=include_ch, yticklabels=include_ch, alpha=0.7)
             
@@ -345,7 +345,7 @@ path = './results/figure/significant difference/all-stage'
 for i, p_value_index in enumerate(p_value_selected):
     plt.figure(figsize=(6, 5))
     for j, p_value_one in enumerate(p_value_index):
-        p_value_one[np.where(p_value_one<=0.05)] = fix_values[j] # 不同频段用不同颜色表示
+        p_value_one[np.where(p_value_one<=0.05)] = fix_values[j] 
         sns.heatmap(p_value_one, vmin=0, vmax=1, cmap="Set1", cbar=False, center=0.5,
                     xticklabels=include_ch, yticklabels=include_ch, alpha=0.7)
         
@@ -415,7 +415,6 @@ def split_group(name):
         
     tum_time_diff = np.mean(tum_time_diff, axis=1)  
     
-    # 根据金标准进行分组
     good_p = np.where(tum_time_diff<=0.4)[0] #  T<0.4s
     middle_p = np.where((tum_time_diff>0.4) & (tum_time_diff<0.55))[0] # 0.4s<T<0.55
     bad_p = np.where(tum_time_diff>=0.55)[0]  # T>0.55s
@@ -525,7 +524,7 @@ def statis_analysis_stage_GT(name):
 
 
 # target = np.array([1,1,1])
-# mask = (tukey_result_all == target).all(axis=-1)  # axis=-1 表示按行匹配所有元素
+# mask = (tukey_result_all == target).all(axis=-1)  
 # indices = np.where(mask)
 
 
@@ -560,7 +559,7 @@ bad_group = bad_group[i0,i1,i2,i3,:]
 
 stage = ['Pre', 'Exp', 'Post']
 index1 = ['CCorr', 'Coh', 'PLI', 'WPLI', 'PowerCorr', 'PLV']
-bands = ['Delta', 'Theta', 'Alpha', 'Beta', 'Gamma'] #频带 
+bands = ['Delta', 'Theta', 'Alpha', 'Beta', 'Gamma'] 
 index2 = ['GE', 'Sigma', 'LC', 'CC']
 
 name = []
@@ -611,7 +610,7 @@ def plot_figure(num):
     fix_values = [0.1, 0.2, 0.3, 0.4] 
     yticklabels = ['CCorr', 'Coh', 'PLI', 'WPLI', 'Pow_Corr', 'PLV']
 
-    xticklabels = ['Delta', 'Theta', 'Alpha', 'Beta', 'Gamma'] #频带 
+    xticklabels = ['Delta', 'Theta', 'Alpha', 'Beta', 'Gamma']  
 
     
     if num==2:
@@ -683,6 +682,7 @@ for side in ['top', 'bottom', 'left', 'right']:
 save_dir = path + '/GT.png'
 plt.savefig(save_dir, dpi=300, bbox_inches='tight', pad_inches=0.02)
 plt.close()
+
 
 
 
